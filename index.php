@@ -1,29 +1,28 @@
-<?php 
-include("php/cn.php");
-$link = mysql_connect($host, $user, $pw)
-    or die('No se pudo conectar: ' . mysql_error());
-    mysql_select_db($db, $link) or die('No se pudo conectar: ' . mysql_error());
-// Realizar una consulta MySQL
-$query = "SELECT * FROM paginacion";
-$result = mysql_query($query, $link) or die("Consulta fallida: " . mysql_error());
+<?php
 
-function select(){
-	$query = "SELECT * FROM paginacion";
-	$result = mysql_query($query) or die("Consulta fallida: " . mysql_error());
-	$cont = 0;
-	
-	while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-	   
-	        $cont++;
-	}
+  function select(){
 
-	// Liberar resultados
-	mysql_free_result($result);
+    include("php/cn.php");
 
-	// Cerrar la conexión
-	mysql_close($link);
-	echo $cont;
-}
+    $link = mysqli_connect($host, $user, $pw);
+    $link->select_db("paginacion");
+
+    $query = "SELECT * FROM paginacion";
+    $result = $link->query($query);
+
+  	$cont = 0;
+
+  	while ($row = $result->fetch_array(MYSQL_ASSOC)) {
+  	   $cont++;
+  	}
+
+  	// liberar resultados
+  	mysql_free_result($result);
+
+  	// cerrar la conexión
+  	mysql_close($link);
+  	echo $cont;
+  }
 ?>
 <!DOCTYPE html>
 <html>
