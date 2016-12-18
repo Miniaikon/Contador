@@ -4,23 +4,24 @@
 
     include("php/cn.php");
 
-    $link = mysqli_connect($host, $user, $pw);
-    $link->select_db("paginacion");
+    $link = mysqli_connect($host, $user, $pw) or trigger_error($link->error);
+    $link->select_db("Contador") or trigger_error($link->error);
 
-    $query = "SELECT * FROM paginacion";
-    $result = $link->query($query);
+    $result = $link->query("SELECT * FROM paginacion")  or trigger_error($link->error);
 
   	$cont = 0;
 
-  	while ($row = $result->fetch_array(MYSQL_ASSOC)) {
-  	   $cont++;
-  	}
+  	while($row = $result->fetch_array(MYSQLI_ASSOC)){
+      $cont++;
+    }
+
+    printf($row);
 
   	// liberar resultados
-  	mysql_free_result($result);
+  	mysqli_free_result($result);
 
   	// cerrar la conexión
-  	mysql_close($link);
+  	mysqli_close($link);
   	echo $cont;
   }
 ?>
