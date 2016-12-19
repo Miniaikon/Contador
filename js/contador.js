@@ -4,7 +4,7 @@
 	var firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 	var opera =  navigator.userAgent.toLowerCase().indexOf('opera');
 	var IE = navigator.userAgent.indexOf("MSIE") > -1 ;
-	
+
 
 	 function navegador(){
 		if (chrome) {
@@ -41,30 +41,30 @@
 		try {
 			xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
 		} catch (e) {
-	 
+
 		try {
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		} catch (E) {
 			xmlhttp = false;
 		}
 	}
-	 
+
 	if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
 		  xmlhttp = new XMLHttpRequest();
 		}
 		return xmlhttp;
 	}
-	 
-	//Función para recoger los datos del formulario y enviarlos por post  
+
+	//Función para recoger los datos del formulario y enviarlos por post
 	function enviar(){
-	 
+
 	  //recogemos los valores de los inputs
 	  sistema = SO();
 	  nav = navegador();
-	 
+
 	  //instanciamos el objetoAjax
 	  ajax=objetoAjax();
-	 
+
 	  //uso del medotod POST
 	  //archivo que realizará la operacion
 	  //registro.php
@@ -91,5 +91,5 @@ if(contara == null){
 	enviar();
 }else{
 	console.log("No cuenta");
-	enviar();
+	// enviar();
 }

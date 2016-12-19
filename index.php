@@ -1,16 +1,14 @@
 <?php
-
-  function select(){
-
+  function obtenerNumeroVisitas(){
     include("php/cn.php");
 
     // conexion y ejecucion de consulta
     $link = mysqli_connect($host, $user, $pw) or trigger_error($link->error);
     $link->select_db("Contador") or trigger_error($link->error);
+
     $result = $link->query("SELECT * FROM $tabla") or trigger_error($link->error);
-
   	$cont = 0;
-
+    
   	while($row = $result->fetch_array(MYSQLI_ASSOC)){
       $cont++;
     }
@@ -23,6 +21,7 @@
   	echo $cont;
   }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +38,7 @@
   </h2>
 	<p>
     <b>Usted es la visita numero:</b>
-    <?php echo select(); ?>
+    <?php echo obtenerNumeroVisitas(); ?>
   </p>
 
 </body>
