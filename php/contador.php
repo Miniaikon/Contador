@@ -1,16 +1,16 @@
 <?php
-include("cn.php");
+  include("cn.php");
 
-$so = $_POST['so'];
-$nav = $_POST['navegador'];
-$ip = $_SERVER['REMOTE_ADDR'];
-$fecha = date("d/m/Y");
+  $so = $_POST['so'];
+  $nav = $_POST['navegador'];
+  $ip = $_SERVER['REMOTE_ADDR'];
+  $fecha = date("d/m/Y");
 
 
-// Conectando, seleccionando la base de datos
-$link = mysql_connect($host, $user, $pw)or die('No se pudo conectar: ' . mysql_error());
-mysql_select_db($db, $link) or die('No se pudo conectar: ' . mysql_error());
+  // Conectando, seleccionando la base de datos
+  $link = mysqli_connect($host, $user, $pw) or trigger_error($link->error);
+  $link->select_db("Contador") or trigger_error($link->error);
 
-mysql_query("INSERT INTO paginacion (navegador, ip, so, fecha)VALUES ('$nav', '$ip', '$so', '$fecha')", $link) or die('No se inserta');
+  $link->query("INSERT INTO $tabla (navegador, ip, so, fecha) VALUES ('$nav', '$ip', '$so', '$fecha')") or trigger_error($link->error);
 
 ?>
