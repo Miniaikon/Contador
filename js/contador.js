@@ -1,5 +1,5 @@
 var cuenta = 0;
-  var contara = localStorage.getItem("cuenta");
+  var contara = sessionStorage.getItem("cuenta");
   var chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
   var firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
   var opera =  navigator.userAgent.toLowerCase().indexOf('opera');
@@ -36,59 +36,40 @@ var cuenta = 0;
       return "Desconocido";
     }
   }
-  function objetoAjax(){
-    var xmlhttp=false;
-    try {
-      xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-    } catch (e) {
 
-    try {
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    } catch (E) {
-      xmlhttp = false;
-    }
-  }
-
-  if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
-      xmlhttp = new XMLHttpRequest();
-    }
-    return xmlhttp;
-  }
-
-  //Función para recoger los datos del formulario y enviarlos por post
   function enviar(){
+    var parametros = {
+      "navegador" : navegador(),
+      "so" : SO()
+    };
+    $.ajax({
+      data:  parametros,
+      url:   'php/contador.php',
+      type:  'post',
+      complete: function(response){
+        $('#visitas').html(response.responseText);
+      }
+    });
+ }
 
-    //recogemos los valores de los inputs
-    sistema = SO();
-    nav = navegador();
-
-    //instanciamos el objetoAjax
-    ajax=objetoAjax();
-
-    //uso del medotod POST
-    //archivo que realizará la operacion
-    //registro.php
-    ajax.open("POST", "php/contador.php",true);
-    //cuando el objeto XMLHttpRequest cambia de estado, la función se inicia
-    ajax.onreadystatechange=function() {
-      //la función responseText tiene todos los datos pedidos al servidor
-      if (ajax.readyState==4) {
-        //mostrar resultados en esta capa
-      divResultado.innerHTML = ajax.responseText
-        //llamar a funcion para limpiar los inputs
-      LimpiarCampos();
-    }
-   }
-    ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-    ajax.send("so="+sistema+"&navegador="+nav)
+  function obtenerNumeroVisitas(){
+    var parametros = {
+      "navegador" : navegador(),
+      "so" : SO()
+    };
+    $.ajax({
+      data:  parametros,
+      url:   'php/visitas.php',
+      type:  'post',
+      complete: function(response){
+        $('#visitas').html(response.responseText);
+      }
+    });
   }
-
-
 if(contara == null){
-  alert("Ahora cuenta");
   cuenta = 1;
-  localStorage.setItem("cuenta", cuenta);
+  sessionStorage.setItem("cuenta", cuenta);
   enviar();
 }else{
-  console.log("No cuenta");  
+  obtenerNumeroVisitas();
 }

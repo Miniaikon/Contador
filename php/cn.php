@@ -4,10 +4,8 @@
   // usuario manejado
   $user = "root";
   // password
-  $pw = "";
+  $pw = "25744281";
   // nombre de BD
   $db = "Contador";
-  // nombre tabla donde se almacenará los datos de entrada
-  $tabla = "paginacion";
   
 ?>
