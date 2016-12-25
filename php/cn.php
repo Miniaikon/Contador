@@ -4,8 +4,8 @@
   // usuario manejado
   $user = "root";
   // password
-  $pw = "25744281";
+  $pw = "";
   // nombre de BD
   $db = "Contador";
-  
+
 ?>
